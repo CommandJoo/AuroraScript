@@ -6,10 +6,12 @@ package de.jo.aurora.lexer.tokens;
  */
 public abstract class Token {
 
-    private String value;
-    
-    public Token(String value) {
+    private final String value;
+    private final TokenPosition position;
+
+    public Token(String value, TokenPosition position) {
         this.value = value;
+        this.position = position;
     }
 
     public String value() {
@@ -17,6 +19,7 @@ public abstract class Token {
     }
 
     public abstract TokenType type();
+
     public abstract boolean match(String val);
 
     @Override

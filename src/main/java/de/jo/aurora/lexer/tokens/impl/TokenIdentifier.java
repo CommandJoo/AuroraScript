@@ -1,6 +1,7 @@
 package de.jo.aurora.lexer.tokens.impl;
 
 import de.jo.aurora.lexer.tokens.Token;
+import de.jo.aurora.lexer.tokens.TokenPosition;
 import de.jo.aurora.lexer.tokens.TokenType;
 
 /**
@@ -8,8 +9,8 @@ import de.jo.aurora.lexer.tokens.TokenType;
  * @Project AuroraScript
  */
 public class TokenIdentifier extends Token {
-    public TokenIdentifier(String value) {
-        super(value);
+    public TokenIdentifier(String value, TokenPosition pos) {
+        super(value, pos);
     }
 
     @Override

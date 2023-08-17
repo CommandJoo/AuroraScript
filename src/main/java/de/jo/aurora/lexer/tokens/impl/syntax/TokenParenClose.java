@@ -1,15 +1,16 @@
-package de.jo.aurora.lexer.tokens.impl.grouping;
+package de.jo.aurora.lexer.tokens.impl.syntax;
 
 import de.jo.aurora.lexer.tokens.Token;
+import de.jo.aurora.lexer.tokens.TokenPosition;
 import de.jo.aurora.lexer.tokens.TokenType;
 
 /**
  * @author CommandJoo 19.05.2023
  * @Project AuroraScript
  */
-public class TokenBraceClose extends Token {
-    public TokenBraceClose(String value) {
-        super(value);
+public class TokenParenClose extends Token {
+    public TokenParenClose(String value, TokenPosition pos) {
+        super(value, pos);
     }
 
     @Override
@@ -19,6 +20,6 @@ public class TokenBraceClose extends Token {
 
     @Override
     public boolean match(String val) {
-        return val.equals("}");
+        return val.equals(")");
     }
 }

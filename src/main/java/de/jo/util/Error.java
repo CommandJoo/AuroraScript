@@ -1,5 +1,7 @@
 package de.jo.util;
 
+import de.jo.aurora.lexer.tokens.TokenPosition;
+
 /**
  * @author CommandJoo 19.05.2023
  * @Project AuroraScript
@@ -81,6 +83,13 @@ public class Error {
         System.err.println("An error occurred: ");
         System.err.println(error);
         exception.printStackTrace();
+        System.exit(-1);
+    }
+
+    public static void callToken(String error, TokenPosition pos) {
+        System.err.println("An error ocurred: ");
+        System.err.println(error +" at position: ");
+        System.err.println(pos.toString()+"!");
         System.exit(-1);
     }
 

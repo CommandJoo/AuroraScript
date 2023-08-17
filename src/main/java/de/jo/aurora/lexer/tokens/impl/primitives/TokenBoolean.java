@@ -1,6 +1,7 @@
 package de.jo.aurora.lexer.tokens.impl.primitives;
 
 import de.jo.aurora.lexer.tokens.Token;
+import de.jo.aurora.lexer.tokens.TokenPosition;
 import de.jo.aurora.lexer.tokens.TokenType;
 
 /**
@@ -9,8 +10,8 @@ import de.jo.aurora.lexer.tokens.TokenType;
  */
 public class TokenBoolean extends Token {
 
-    public TokenBoolean(String value) {
-        super(value);
+    public TokenBoolean(String value, TokenPosition pos) {
+        super(value, pos);
     }
 
     @Override

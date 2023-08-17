@@ -1,6 +1,7 @@
 package de.jo.aurora.lexer.tokens.impl.operating;
 
 import de.jo.aurora.lexer.tokens.Token;
+import de.jo.aurora.lexer.tokens.TokenPosition;
 import de.jo.aurora.lexer.tokens.TokenType;
 
 /**
@@ -8,8 +9,8 @@ import de.jo.aurora.lexer.tokens.TokenType;
  * @Project AuroraScript
  */
 public class TokenNot extends Token {
-    public TokenNot(String value) {
-        super(value);
+    public TokenNot(String value, TokenPosition pos) {
+        super(value, pos);
     }
 
     @Override

@@ -1,6 +1,7 @@
-package de.jo.aurora.lexer.tokens.impl.variable;
+package de.jo.aurora.lexer.tokens.impl.objects;
 
 import de.jo.aurora.lexer.tokens.Token;
+import de.jo.aurora.lexer.tokens.TokenPosition;
 import de.jo.aurora.lexer.tokens.TokenType;
 
 /**
@@ -8,13 +9,13 @@ import de.jo.aurora.lexer.tokens.TokenType;
  * @Project AuroraScript
  */
 public class TokenLet extends Token {
-    public TokenLet(String value) {
-        super(value);
+    public TokenLet(String value, TokenPosition pos) {
+        super(value, pos);
     }
 
     @Override
     public TokenType type() {
-        return TokenType.TOKEN_LET;
+        return TokenType.LET;
     }
 
     @Override

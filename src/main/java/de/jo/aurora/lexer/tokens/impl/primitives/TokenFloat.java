@@ -1,6 +1,7 @@
 package de.jo.aurora.lexer.tokens.impl.primitives;
 
 import de.jo.aurora.lexer.tokens.Token;
+import de.jo.aurora.lexer.tokens.TokenPosition;
 import de.jo.aurora.lexer.tokens.TokenType;
 
 /**
@@ -8,10 +9,9 @@ import de.jo.aurora.lexer.tokens.TokenType;
  * @Project AuroraScript
  */
 public class TokenFloat extends Token {
-    public TokenFloat(String value) {
-        super(value);
+    public TokenFloat(String value, TokenPosition pos) {
+        super(value, pos);
     }
-
     @Override
     public TokenType type() {
         return TokenType.FLOAT;
