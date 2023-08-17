@@ -3,12 +3,14 @@ package de.jo.aurora.parser;
 import de.jo.aurora.lexer.tokens.Token;
 import de.jo.aurora.lexer.tokens.TokenList;
 import de.jo.aurora.lexer.tokens.TokenType;
+import de.jo.aurora.lexer.tokens.impl.TokenIdentifier;
 import de.jo.aurora.parser.nodes.Node;
 import de.jo.aurora.parser.nodes.NodeExpression;
 import de.jo.aurora.parser.nodes.impl.NodeProgram;
 import de.jo.aurora.parser.nodes.impl.expressions.NodeBinaryExpression;
 import de.jo.aurora.parser.nodes.impl.expressions.NodeUnaryExpression;
 import de.jo.aurora.parser.nodes.impl.expressions.objects.*;
+import de.jo.aurora.parser.nodes.impl.statements.NodeVariableDeclaration;
 import de.jo.util.Error;
 
 import java.util.ArrayList;
@@ -35,14 +37,83 @@ public class Parser {
     }
 
     private Node parseStatements() {
+        switch (this.current().type()) {
+            case LET:
+            case CONST:
+                return this.parseVariableDeclaration();
+        }
         return parseExpressions();
     }
 
+    /*
+    #
+    #
+    #
+    #
+    #           STATEMENTS
+    #
+    #
+    #
+    #
+    #
+     */
+    private NodeVariableDeclaration parseVariableDeclaration() {
+        boolean constant = false;
 
-    private NodeExpression parseExpressions() {
-        return parseAdditive();
+        if(this.current().type() == TokenType.CONST) constant = true;
+        if(this.current().type() != TokenType.LET) Error.call("Invalid Token expected const or let but found: "+this.current().type());
+        this.tokens.removeFirst();
+
+        NodeIdentifier identifier = new NodeIdentifier(this.expect(TokenType.IDENTIFIER).value());
+        this.expect(TokenType.EQUALS);
+        NodeExpression value = this.parseExpressions();
+        this.expect(TokenType.SEMICOLON);
+        return new NodeVariableDeclaration(constant, identifier, value);
     }
 
+
+
+
+    /*
+    #
+    #
+    #
+    #
+    #           EXPRESSIONS
+    #
+    #
+    #
+    #
+    #
+    #
+     */
+
+
+
+
+
+
+
+
+
+
+    private NodeExpression parseExpressions() {
+        return parseComparative();
+    }
+
+    //parses boolean && boolean or boolean || boolean
+    private NodeExpression parseComparative() {
+        NodeExpression left = parseAdditive();
+        while(this.current().type() == TokenType.OR_AND && this.tokens.get(1).type() == TokenType.OR_AND) {
+            //builds an operator like &| or && or ||
+            String operator = this.tokens.removeFirst().value()+this.tokens.removeFirst().value();
+            NodeExpression right = this.parseAdditive();
+            left = new NodeBinaryExpression(left, operator, right);
+        }
+        return left;
+    }
+
+    //parses + and -
     private NodeExpression parseAdditive() {
         NodeExpression left = parseMultiplicativeExpression();
 
@@ -55,6 +126,7 @@ public class Parser {
         return left;
     }
 
+    //parses *, /, ^, and %
     private NodeExpression parseMultiplicativeExpression() {
         NodeExpression left = parseUnaryExpression();
 
@@ -131,6 +203,16 @@ public class Parser {
 
     private Token current() {
         return tokens.getFirst();
+    }
+
+    private Token expect(TokenType type) {
+        Token tk = this.tokens.removeFirst();
+        if(tk.type() == type) {
+            return tk;
+        }else {
+            Error.call("Invalid token, expected: "+type+" but found: "+tk.type());
+            return null;
+        }
     }
 
 }

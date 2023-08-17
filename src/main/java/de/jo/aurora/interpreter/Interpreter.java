@@ -3,7 +3,8 @@ package de.jo.aurora.interpreter;
 import de.jo.aurora.parser.nodes.Node;
 import de.jo.aurora.parser.nodes.impl.NodeProgram;
 import de.jo.aurora.parser.nodes.impl.expressions.NodeBinaryExpression;
-import de.jo.aurora.parser.nodes.impl.expressions.objects.NodeNumericLiteral;
+import de.jo.aurora.parser.nodes.impl.expressions.objects.*;
+import de.jo.aurora.parser.nodes.impl.statements.NodeVariableDeclaration;
 
 import java.util.ArrayList;
 
@@ -37,9 +38,16 @@ public class Interpreter {
     public static Object eval(Node node, Scope env) {
         switch (node.type()) {
             //LITERALS
+            case BOOLEAN_LITERAL:
+                return ((NodeBooleanLiteral) node).value();
+            case CHAR_LITERAL:
+                return ((NodeCharLiteral) node).value();
+            case STRING_LITERAL:
+                return ((NodeStringLiteral) node).value();
             case NUMERIC_LITERAL:
-                NodeNumericLiteral num = ((NodeNumericLiteral) node);
-                return num.number();
+                return ((NodeNumericLiteral) node).number();
+            case IDENTIFIER:
+                return env.find(((NodeIdentifier)node).symbol()).value();
 
             //EXPRESSIONS
             case BINARY_EXPRESSION:
@@ -49,6 +57,9 @@ public class Interpreter {
                 //STATEMENTS
             case PROGRAM:
                 return evalProgram((NodeProgram) node, env);
+            case VARIABLE_DECLARATION:
+                evalVariableDeclaration((NodeVariableDeclaration) node, env);
+                return true;
             default:
                 System.out.println("Unparsed Node of type: " + node.type());
                 System.exit(0);

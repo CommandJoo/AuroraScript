@@ -21,6 +21,8 @@ public class TokenOperator extends Token {
 
     @Override
     public boolean match(String val) {
-        return val.equals("*") || val.equals("/") || val.equals("^") || val.equals("%") || val.equals("+") ||val.equals("-");
+        return val.equals("*") || val.equals("/")
+                || val.equals("^") || val.equals("%")
+                || val.equals("+") ||val.equals("-");
     }
 }

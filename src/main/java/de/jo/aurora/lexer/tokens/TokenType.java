@@ -3,6 +3,7 @@ package de.jo.aurora.lexer.tokens;
 import de.jo.aurora.lexer.tokens.impl.TokenEndOfFile;
 import de.jo.aurora.lexer.tokens.impl.TokenIdentifier;
 import de.jo.aurora.lexer.tokens.impl.objects.TokenFunction;
+import de.jo.aurora.lexer.tokens.impl.operating.TokenOrAnd;
 import de.jo.aurora.lexer.tokens.impl.syntax.*;
 import de.jo.aurora.lexer.tokens.impl.operating.TokenEquals;
 import de.jo.aurora.lexer.tokens.impl.operating.TokenNot;
@@ -19,7 +20,8 @@ import de.jo.util.Reflections;
 public enum TokenType {
 
     //OPERATING
-    EQUALS(TokenEquals.class, new TokenEquals(null, null)), OPERATOR(TokenOperator.class, new TokenOperator(null, null)), NOT(TokenNot.class, new TokenNot(null, null)),
+    EQUALS(TokenEquals.class, new TokenEquals(null, null)), OPERATOR(TokenOperator.class, new TokenOperator(null, null)),
+    NOT(TokenNot.class, new TokenNot(null, null)), OR_AND(TokenOrAnd.class, new TokenOrAnd(null, null)),
 
     //SYNTAX
     PAREN_OPEN(TokenParenOpen.class, new TokenParenOpen(null, null)), PAREN_CLOSE(TokenParenClose.class, new TokenParenClose(null, null)),

@@ -16,8 +16,14 @@ public class EvalExpressions {
         Object left = eval(binexp.left(), env);
         Object right = eval(binexp.right(), env);
 
-        if(left instanceof Number && right instanceof Number) {
+        if (left instanceof Number && right instanceof Number) {
             return evalNumericBinaryExpression((Number) left, (Number) right, binexp.operator());
+        }
+        if ((left instanceof String || left instanceof Character) && (right instanceof String || right instanceof Character)) {
+            return evalAlphabeticBinaryExpression(left, right, binexp.operator());
+        }
+        if (left instanceof Boolean && right instanceof Boolean) {
+            return evalBooleanBinaryExpression((Boolean) left, (Boolean) right, binexp.operator());
         }
 
         return null;

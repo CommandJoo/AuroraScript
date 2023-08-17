@@ -30,4 +30,17 @@ public class Scope {
         return parent.level()+1;
     }
 
+    public void add(Variable variable) {
+        this.variables.add(variable);
+    }
+
+    public Variable find(String identifier) {
+        Variable result = null;
+        for(Variable var : this.variables) {
+            if(var.identifier().equals(identifier)) result = var;
+        }
+        if(result == null && this.parent != null) result = this.parent.find(identifier);
+        return result;
+    }
+
 }
