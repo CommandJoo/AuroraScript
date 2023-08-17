@@ -147,7 +147,6 @@ public class Lexer {
             }
         }
         tokens.add(new TokenEndOfFile("", position));
-        System.out.println(tokens);
     }
 
     /**
