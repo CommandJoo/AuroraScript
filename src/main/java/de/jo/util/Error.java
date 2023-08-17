@@ -87,7 +87,7 @@ public class Error {
     }
 
     public static void callToken(String error, TokenPosition pos) {
-        System.err.println("An error ocurred: ");
+        System.err.println("An error occurred: ");
         System.err.println(error +" at position: ");
         System.err.println(pos.toString()+"!");
         System.exit(-1);

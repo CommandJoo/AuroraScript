@@ -30,6 +30,7 @@ public class Interpreter {
         Scope env = new Scope(global);
         Object obj = eval(program, env);
 
+        //--> run main function
 
         return obj;
     }

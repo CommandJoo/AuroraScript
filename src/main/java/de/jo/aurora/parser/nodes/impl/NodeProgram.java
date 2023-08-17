@@ -11,7 +11,7 @@ import java.util.List;
  */
 public class NodeProgram extends Node{
 
-    private List<Node> nodes;
+    private final List<Node> nodes;
     
     public NodeProgram(List<Node> nodes) {
         super(NodeType.PROGRAM);

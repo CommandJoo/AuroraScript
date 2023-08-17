@@ -9,8 +9,9 @@ import de.jo.aurora.parser.nodes.NodeType;
  */
 public class NodeBinaryExpression extends NodeExpression {
 
-    private NodeExpression left, right;
-    private String operator;
+    private final NodeExpression left;
+    private final NodeExpression right;
+    private final String operator;
 
     public NodeBinaryExpression(NodeExpression left, String operator, NodeExpression right) {
         super(NodeType.BINARY_EXPRESSION);

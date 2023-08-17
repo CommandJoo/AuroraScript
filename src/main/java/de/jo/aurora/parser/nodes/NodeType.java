@@ -15,6 +15,5 @@ public enum NodeType {
 
     //STATEMENT
     VARIABLE_DECLARATION,
-    ;
 
 }

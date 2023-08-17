@@ -1,4 +1,4 @@
-//For imports the fileending .aur can be left out or be used
+//For imports the file ending .aur can be left out or be used
 //The suffix as can also be used to specify a variable name for the import
 import "libs/lib.aur" as "test"
 
@@ -7,7 +7,7 @@ const constant = true
 //variable objects
 let variable = true
 
-//Main method invoked in each programm
+//Main method invoked in each program
 fun main() {
 
 }

@@ -20,7 +20,7 @@ public class FileUtil {
     public static String read(InputStream stream) {
         try {
             BufferedReader buff = new BufferedReader(new InputStreamReader(stream));
-            String line = "";
+            String line;
             StringBuilder sb = new StringBuilder();
 
             while((line = buff.readLine()) != null) {

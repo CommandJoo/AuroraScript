@@ -3,7 +3,6 @@ package de.jo.aurora.parser;
 import de.jo.aurora.lexer.tokens.Token;
 import de.jo.aurora.lexer.tokens.TokenList;
 import de.jo.aurora.lexer.tokens.TokenType;
-import de.jo.aurora.lexer.tokens.impl.TokenIdentifier;
 import de.jo.aurora.parser.nodes.Node;
 import de.jo.aurora.parser.nodes.NodeExpression;
 import de.jo.aurora.parser.nodes.impl.NodeProgram;
@@ -22,8 +21,8 @@ import java.util.List;
  */
 public class Parser {
 
-    private TokenList tokens;
-    private List<Node> nodes;
+    private final TokenList tokens;
+    private final List<Node> nodes;
 
     public Parser(TokenList tokens) {
         this.tokens = tokens;
@@ -58,9 +57,8 @@ public class Parser {
     #
      */
     private NodeVariableDeclaration parseVariableDeclaration() {
-        boolean constant = false;
+        boolean constant = this.current().type() == TokenType.CONST;
 
-        if(this.current().type() == TokenType.CONST) constant = true;
         if(this.current().type() != TokenType.LET) Error.call("Invalid Token expected const or let but found: "+this.current().type());
         this.tokens.removeFirst();
 

@@ -14,6 +14,10 @@ public abstract class Token {
         this.position = position;
     }
 
+    public TokenPosition position() {
+        return position;
+    }
+
     public String value() {
         return value;
     }

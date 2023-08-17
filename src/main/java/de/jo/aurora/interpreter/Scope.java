@@ -17,11 +17,10 @@ public class Scope {
     }
 
     public static Scope globalScope() {
-        Scope scope = new Scope(null);
 
         //register global variables
 
-        return scope;
+        return new Scope(null);
     }
 
     public int level() {

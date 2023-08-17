@@ -43,8 +43,8 @@ public enum TokenType {
     //EOF
     END_OF_FILE(TokenEndOfFile.class, new TokenEndOfFile(null, null));
 
-    private Token token;
-    private Class<? extends Token> clazz;
+    private final Token token;
+    private final Class<? extends Token> clazz;
 
     public static TokenType matches(String text) {
         for(TokenType type : values()) {

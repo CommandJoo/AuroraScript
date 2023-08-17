@@ -27,14 +27,12 @@ public class TokenPosition {
         return pos;
     }
 
-    public TokenPosition setLine(int line) {
+    public void setLine(int line) {
         this.line = line;
-        return this;
     }
 
-    public TokenPosition setPos(int pos) {
+    public void setPos(int pos) {
         this.pos = pos;
-        return this;
     }
 
     @Override

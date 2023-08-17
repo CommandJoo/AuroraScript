@@ -19,8 +19,8 @@ import java.util.LinkedList;
  */
 public class Lexer {
 
-    private LinkedList<String> code;
-    private TokenList tokens;
+    private final LinkedList<String> code;
+    private final TokenList tokens;
 
     public Lexer(String code) {
         this.code = StringUtil.chop(code);
@@ -47,11 +47,11 @@ public class Lexer {
                     }
                 }
             }
-            /**
+            /*
              * Loops through all TokenType values
              * If one match method returns true it will be added
              * However there are classes like TokenInt that always return false
-             * these types have to always be lexed manually
+             * these types have to be tokenized manually
              **/
             for (TokenType tokenType : TokenType.values()) {
                 if (tokenType.match(this.current())) {
@@ -94,7 +94,7 @@ public class Lexer {
                 }
             }
 
-            //The text must either be an identifier like 'variableName' or a languagespecific token like 'const'
+            //The text must either be an identifier like 'variableName' or a language specific token like 'const'
             if (StringUtil.isIdentifier(this.current()) && !StringUtil.isNumeric(this.current())) {
                 StringBuilder ident = new StringBuilder(this.shift());
                 position = this.update(position);

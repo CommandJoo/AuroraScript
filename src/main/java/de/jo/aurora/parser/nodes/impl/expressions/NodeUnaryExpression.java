@@ -9,8 +9,8 @@ import de.jo.aurora.parser.nodes.NodeType;
  */
 public class NodeUnaryExpression extends NodeExpression {
 
-    private NodeExpression right;
-    private String operator;
+    private final NodeExpression right;
+    private final String operator;
 
     public NodeUnaryExpression(String operator, NodeExpression right) {
         super(NodeType.UNARY_EXPRESSION);
