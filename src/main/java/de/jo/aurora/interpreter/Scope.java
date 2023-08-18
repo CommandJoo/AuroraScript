@@ -1,5 +1,9 @@
 package de.jo.aurora.interpreter;
 
+import de.jo.aurora.interpreter.runtime.Function;
+import de.jo.aurora.interpreter.runtime.Variable;
+import de.jo.util.StringUtil;
+
 import java.util.ArrayList;
 
 /**
@@ -10,10 +14,12 @@ public class Scope {
 
     private final Scope parent;
     private final ArrayList<Variable> variables;
+    private final ArrayList<Function> functions;
 
     public Scope(Scope parent) {
         this.parent = parent;
         this.variables = new ArrayList<>();
+        this.functions = new ArrayList<>();
     }
 
     public static Scope globalScope() {
@@ -29,17 +35,30 @@ public class Scope {
         return parent.level()+1;
     }
 
-    public void add(Variable variable) {
+    public void addVariable(Variable variable) {
         this.variables.add(variable);
     }
+    public void addFunction(Function function) {this.functions.add(function);}
 
-    public Variable find(String identifier) {
+    public Variable findVariable(String identifier) {
         Variable result = null;
         for(Variable var : this.variables) {
             if(var.identifier().equals(identifier)) result = var;
         }
-        if(result == null && this.parent != null) result = this.parent.find(identifier);
+        if(result == null && this.parent != null) result = this.parent.findVariable(identifier);
+        return result;
+    }
+    public Function findFunction(String identifier) {
+        Function result = null;
+        for(Function fun : this.functions) {
+            if(fun.identifier().equals(identifier)) result = fun;
+        }
+        if(result == null && this.parent != null) result = this.parent.findFunction(identifier);
         return result;
     }
 
+    @Override
+    public String toString() {
+        return StringUtil.jsonify(this);
+    }
 }

@@ -222,4 +222,32 @@ public class Reflections {
         }
     }
 
+
+    public static boolean type(Class<?> cls, Object obj) {
+        if(cls == null) cls = Object.class;
+        if(obj == null) {
+            Error.call("Checked object must not be null", new NullPointerException());
+        }
+        if(obj.getClass().isAssignableFrom(cls)) {
+            return true;
+        }else{
+            Error.call(obj.getClass().getTypeName()+" is not of type "+cls.getTypeName(), new IllegalStateException());
+            return false;
+        }
+    }
+
+    public static boolean type(Class<?> cls, Object obj, String error, Exception exp) {
+        if(cls == null) cls = Object.class;
+        if(obj == null) {
+            Error.call("Checked object must not be null", new NullPointerException());
+        }
+        if(obj.getClass().isAssignableFrom(cls)) {
+            return true;
+        }else{
+            Error.softCall(obj.getClass().getTypeName()+" is not of type "+cls.getTypeName());
+            Error.call(error, exp);
+            return false;
+        }
+    }
+
 }

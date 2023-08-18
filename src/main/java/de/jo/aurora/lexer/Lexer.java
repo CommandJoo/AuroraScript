@@ -63,9 +63,16 @@ public class Lexer {
             if(this.current().equals("\"")) {
                 this.shift();
                 position = this.update(position);
-
+                if(this.current().equals("\"")) {
+                    tokens.add(new TokenString("", position));
+                    this.shift();
+                    continue;
+                }
                 StringBuilder ident = new StringBuilder(this.shift());
-
+                if(this.current().equals("\"")) {
+                    this.tokens.add(new TokenString(ident.toString(), position));
+                    continue;
+                }
                 while (!this.current().equals("\"")) {
                     ident.append(this.shift());
                     position = this.update(position);

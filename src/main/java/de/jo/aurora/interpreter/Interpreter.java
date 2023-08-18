@@ -1,10 +1,19 @@
 package de.jo.aurora.interpreter;
 
+import de.jo.aurora.interpreter.runtime.Function;
 import de.jo.aurora.parser.nodes.Node;
 import de.jo.aurora.parser.nodes.impl.NodeProgram;
-import de.jo.aurora.parser.nodes.impl.expressions.NodeBinaryExpression;
+import de.jo.aurora.parser.nodes.impl.expressions.NodeFunctionCall;
+import de.jo.aurora.parser.nodes.impl.expressions.NodeVariableAssignment;
+import de.jo.aurora.parser.nodes.impl.expressions.operations.NodeBinaryComparisonExpression;
+import de.jo.aurora.parser.nodes.impl.expressions.operations.NodeBinaryExpression;
+import de.jo.aurora.parser.nodes.impl.expressions.operations.NodeTernaryExpression;
+import de.jo.aurora.parser.nodes.impl.expressions.operations.NodeUnaryExpression;
 import de.jo.aurora.parser.nodes.impl.expressions.objects.*;
+import de.jo.aurora.parser.nodes.impl.statements.NodeFunctionDeclaration;
+import de.jo.aurora.parser.nodes.impl.statements.NodeReturn;
 import de.jo.aurora.parser.nodes.impl.statements.NodeVariableDeclaration;
+import de.jo.util.Error;
 
 import java.util.ArrayList;
 
@@ -31,8 +40,10 @@ public class Interpreter {
         Object obj = eval(program, env);
 
         //--> run main function
+        Function main = env.findFunction("main");
+        if(main == null) Error.call("Invalid aurora program", new NullPointerException("Could not find main function!"));
 
-        return obj;
+        return evalFunctionCallExp(new NodeFunctionCall(new NodeIdentifier("main"), new ArrayList<>()), env);
     }
 
 
@@ -48,19 +59,34 @@ public class Interpreter {
             case NUMERIC_LITERAL:
                 return ((NodeNumericLiteral) node).number();
             case IDENTIFIER:
-                return env.find(((NodeIdentifier)node).symbol()).value();
+                return env.findVariable(((NodeIdentifier)node).symbol()).value();
 
             //EXPRESSIONS
+            case UNARY_EXPRESSION:
+                return evalUnExp((NodeUnaryExpression)node, env);
             case BINARY_EXPRESSION:
                 return evalBinExp((NodeBinaryExpression)node, env);
+            case BINARY_COMPARISON:
+                return evalBinCompExp((NodeBinaryComparisonExpression)node, env);
+            case TERNARY_EXPRESSION:
+                return evalTernExp((NodeTernaryExpression)node, env);
 
+            case FUNCTION_CALL:
+                return evalFunctionCallExp((NodeFunctionCall) node, env);
+            case VARIABLE_ASSIGNMENT:
+                return evalVariableAssignmentExp((NodeVariableAssignment)node, env);
 
                 //STATEMENTS
             case PROGRAM:
                 return evalProgram((NodeProgram) node, env);
             case VARIABLE_DECLARATION:
-                evalVariableDeclaration((NodeVariableDeclaration) node, env);
-                return true;
+                String variableDeclaration = evalVariableDeclaration((NodeVariableDeclaration) node, env);
+                return "DECLARED VARIABLE: "+variableDeclaration;
+            case FUNCTION_DECLARATION:
+                String functionDeclaration = evalFunctionDeclaration((NodeFunctionDeclaration) node, env);
+                return "DECLARED FUNCTION: "+functionDeclaration;
+            case RETURN:
+                return evalReturnStatement((NodeReturn) node, env);
             default:
                 System.out.println("Unparsed Node of type: " + node.type());
                 System.exit(0);

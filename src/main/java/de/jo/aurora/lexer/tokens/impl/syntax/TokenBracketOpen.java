@@ -14,7 +14,7 @@ public class TokenBracketOpen extends Token {
     }
     @Override
     public TokenType type() {
-        return TokenType.PAREN_OPEN;
+        return TokenType.BRACE_OPEN;
     }
 
     @Override

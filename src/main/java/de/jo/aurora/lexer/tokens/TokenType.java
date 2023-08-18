@@ -3,11 +3,8 @@ package de.jo.aurora.lexer.tokens;
 import de.jo.aurora.lexer.tokens.impl.TokenEndOfFile;
 import de.jo.aurora.lexer.tokens.impl.TokenIdentifier;
 import de.jo.aurora.lexer.tokens.impl.objects.TokenFunction;
-import de.jo.aurora.lexer.tokens.impl.operating.TokenOrAnd;
+import de.jo.aurora.lexer.tokens.impl.operating.*;
 import de.jo.aurora.lexer.tokens.impl.syntax.*;
-import de.jo.aurora.lexer.tokens.impl.operating.TokenEquals;
-import de.jo.aurora.lexer.tokens.impl.operating.TokenNot;
-import de.jo.aurora.lexer.tokens.impl.operating.TokenOperator;
 import de.jo.aurora.lexer.tokens.impl.primitives.*;
 import de.jo.aurora.lexer.tokens.impl.objects.TokenConst;
 import de.jo.aurora.lexer.tokens.impl.objects.TokenLet;
@@ -22,13 +19,17 @@ public enum TokenType {
     //OPERATING
     EQUALS(TokenEquals.class, new TokenEquals(null, null)), OPERATOR(TokenOperator.class, new TokenOperator(null, null)),
     NOT(TokenNot.class, new TokenNot(null, null)), OR_AND(TokenOrAnd.class, new TokenOrAnd(null, null)),
+    LESS_GREATER_THAN(TokenLessGreater.class, new TokenLessGreater(null, null)),
+    TERNARY(TokenTernary.class, new TokenTernary(null, null)),
 
     //SYNTAX
     PAREN_OPEN(TokenParenOpen.class, new TokenParenOpen(null, null)), PAREN_CLOSE(TokenParenClose.class, new TokenParenClose(null, null)),
     BRACKET_OPEN(TokenBracketOpen.class, new TokenBracketOpen(null, null)), BRACKET_CLOSE(TokenBracketClose.class, new TokenBracketClose(null, null)),
     BRACE_OPEN(TokenBraceOpen.class, new TokenBraceOpen(null, null)), BRACE_CLOSE(TokenBraceClose.class, new TokenBraceClose(null, null)),
 
-    SEMICOLON(TokenSemicolon.class, new TokenSemicolon(null, null)),
+    SEMICOLON(TokenSemicolon.class, new TokenSemicolon(null, null)), COLON(TokenColon.class, new TokenColon(null, null)),
+    DOT(TokenDot.class, new TokenDot(null, null)), COMMA(TokenComma.class, new TokenComma(null, null)),
+    RETURN(TokenReturn.class, new TokenReturn(null, null)),
 
     //PRIMITIVES
     INT(TokenInt.class, new TokenInt("0", null)), FLOAT(TokenFloat.class, new TokenFloat("0.0", null)),

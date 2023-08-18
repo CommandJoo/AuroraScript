@@ -1,9 +1,12 @@
 package de.jo.aurora.interpreter.evaluators;
 
 import de.jo.aurora.interpreter.Scope;
-import de.jo.aurora.interpreter.Variable;
+import de.jo.aurora.interpreter.runtime.Function;
+import de.jo.aurora.interpreter.runtime.Variable;
 import de.jo.aurora.parser.nodes.Node;
 import de.jo.aurora.parser.nodes.impl.NodeProgram;
+import de.jo.aurora.parser.nodes.impl.statements.NodeFunctionDeclaration;
+import de.jo.aurora.parser.nodes.impl.statements.NodeReturn;
 import de.jo.aurora.parser.nodes.impl.statements.NodeVariableDeclaration;
 
 import java.util.ArrayList;
@@ -22,8 +25,18 @@ public class EvalStatements {
         return values;
     }
 
-    public static void evalVariableDeclaration(NodeVariableDeclaration node, Scope scope) {
-        scope.add(new Variable(node.constant(), node.identifier().symbol(), eval(node.value(), scope)));
+    public static String evalVariableDeclaration(NodeVariableDeclaration node, Scope scope) {
+        scope.addVariable(new Variable(node.constant(), node.identifier().symbol(), eval(node.value(), scope)));
+        return node.identifier().symbol();
+    }
+
+    public static String evalFunctionDeclaration(NodeFunctionDeclaration node, Scope scope) {
+        scope.addFunction(new Function(node.identifier().symbol(), node.body(), node.parameters()));
+        return node.identifier().symbol();
+    }
+
+    public static Object evalReturnStatement(NodeReturn node, Scope scope) {
+        return eval(node.value(), scope);
     }
 
 }

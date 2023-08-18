@@ -1,4 +1,4 @@
-package de.jo.aurora.parser.nodes.impl.expressions;
+package de.jo.aurora.parser.nodes.impl.expressions.operations;
 
 import de.jo.aurora.parser.nodes.NodeExpression;
 import de.jo.aurora.parser.nodes.NodeType;

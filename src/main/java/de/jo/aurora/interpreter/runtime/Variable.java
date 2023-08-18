@@ -1,4 +1,4 @@
-package de.jo.aurora.interpreter;
+package de.jo.aurora.interpreter.runtime;
 
 /**
  * @author CommandJoo 17.08.2023
@@ -8,7 +8,7 @@ public class Variable {
 
     private final boolean constant;
     private final String identifier;
-    private final Object value;
+    private Object value;
 
     public Variable(boolean constant, String identifier, Object value) {
         this.constant = constant;
@@ -30,5 +30,10 @@ public class Variable {
 
     public Object value() {
         return value;
+    }
+
+    public Variable setValue(Object value) {
+        this.value = value;
+        return this;
     }
 }

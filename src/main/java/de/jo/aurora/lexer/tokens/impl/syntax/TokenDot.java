@@ -5,21 +5,21 @@ import de.jo.aurora.lexer.tokens.TokenPosition;
 import de.jo.aurora.lexer.tokens.TokenType;
 
 /**
- * @author CommandJoo 19.05.2023
+ * @author CommandJoo 18.08.2023
  * @Project AuroraScript
  */
-public class TokenBraceClose extends Token {
-    public TokenBraceClose(String value, TokenPosition pos) {
-        super(value, pos);
+public class TokenDot extends Token {
+    public TokenDot(String value, TokenPosition position) {
+        super(value, position);
     }
 
     @Override
     public TokenType type() {
-        return TokenType.BRACE_CLOSE;
+        return TokenType.DOT;
     }
 
     @Override
     public boolean match(String val) {
-        return val.equals("}");
+        return val.equals(".");
     }
 }

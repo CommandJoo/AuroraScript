@@ -15,7 +15,7 @@ public class TokenBracketClose extends Token {
 
     @Override
     public TokenType type() {
-        return TokenType.PAREN_CLOSE;
+        return TokenType.BRACKET_CLOSE;
     }
 
     @Override
