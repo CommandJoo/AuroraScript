@@ -1,12 +1,8 @@
 package de.jo.aurora.lexer;
 
-import de.jo.aurora.lexer.tokens.TokenList;
-import de.jo.aurora.lexer.tokens.TokenPosition;
-import de.jo.aurora.lexer.tokens.TokenType;
+import de.jo.aurora.lexer.tokens.*;
 import de.jo.aurora.lexer.tokens.impl.TokenEndOfFile;
-import de.jo.aurora.lexer.tokens.impl.primitives.TokenChar;
-import de.jo.aurora.lexer.tokens.impl.primitives.TokenFloat;
-import de.jo.aurora.lexer.tokens.impl.primitives.TokenInt;
+import de.jo.aurora.lexer.tokens.impl.primitives.*;
 import de.jo.aurora.lexer.tokens.impl.primitives.TokenString;
 import de.jo.util.Error;
 import de.jo.util.StringUtil;
