@@ -1,11 +1,7 @@
 package de.jo.aurora.parser;
 
-import de.jo.aurora.lexer.tokens.Token;
-import de.jo.aurora.lexer.tokens.TokenList;
-import de.jo.aurora.lexer.tokens.TokenType;
-import de.jo.aurora.parser.nodes.Node;
-import de.jo.aurora.parser.nodes.NodeExpression;
-import de.jo.aurora.parser.nodes.NodeType;
+import de.jo.aurora.lexer.tokens.*;
+import de.jo.aurora.parser.nodes.*;
 import de.jo.aurora.parser.nodes.impl.NodeProgram;
 import de.jo.aurora.parser.nodes.impl.expressions.*;
 import de.jo.aurora.parser.nodes.impl.expressions.objects.*;
