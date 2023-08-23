@@ -7,13 +7,16 @@ import de.jo.aurora.parser.nodes.impl.expressions.*;
 import de.jo.aurora.parser.nodes.impl.expressions.objects.*;
 import de.jo.aurora.parser.nodes.impl.expressions.operations.*;
 import de.jo.aurora.parser.nodes.impl.statements.*;
+import de.jo.aurora.parser.nodes.impl.statements.logic.NodeElseStatement;
+import de.jo.aurora.parser.nodes.impl.statements.logic.NodeIfStatement;
+import de.jo.aurora.parser.nodes.impl.statements.logic.NodeLogicStatement;
 import de.jo.util.Error;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author CommandJoo 19.05.2023
+ * @author Johannes Hans 19.05.2023
  * @Project AuroraScript
  */
 public class Parser {
@@ -38,11 +41,14 @@ public class Parser {
             case CONST:
                 return this.parseVariableDeclaration();
             case RETURN:
-                if(parseType != ParseType.IN_FUNCTION) Error.call("Values can only be returned at level: "+ParseType.IN_FUNCTION+" but found "+parseType);
+                if(parseType != ParseType.IN_FUNCTION && parseType != ParseType.IN_STATEMENT) Error.call("Values can only be returned at level: "+ParseType.IN_FUNCTION+" but found "+parseType);
                 return this.parseReturn();
             case FUNCTION:
                 if (parseType != ParseType.NORMAL) Error.call("Function can not be declared at level: "+parseType +", only at level: "+ParseType.NORMAL);
                 return this.parseFunctionDeclaration();
+            case IF:
+                if(parseType != ParseType.IN_FUNCTION && parseType != ParseType.IN_STATEMENT) Error.call("If Statements can only be declared in functions or other statements not at level: "+parseType);
+                return this.parseLogic();
         }
         return parseExpressions(parseType);
     }
@@ -72,7 +78,6 @@ public class Parser {
         this.expect(TokenType.SEMICOLON);
         return new NodeVariableDeclaration(constant, identifier, value);
     }
-
     private NodeFunctionDeclaration parseFunctionDeclaration() {
         this.expect(TokenType.FUNCTION);
         NodeIdentifier identifier = new NodeIdentifier(this.expect(TokenType.IDENTIFIER).value());
@@ -81,7 +86,6 @@ public class Parser {
 
         return new NodeFunctionDeclaration(identifier, body, parameters);
     }
-
     private NodeReturn parseReturn() {
         this.expect(TokenType.RETURN);
         NodeExpression exp = this.parseExpressions(ParseType.IN_ARGUMENT);
@@ -89,6 +93,48 @@ public class Parser {
         return new NodeReturn(exp);
     }
 
+    private NodeLogicStatement parseLogic() {
+        NodeIfStatement ifs = this.parseIf();
+        if(this.current().type() == TokenType.ELSE) {
+            return parseElseRest(ifs);
+        }else{
+            return new NodeLogicStatement(ifs, null, null);
+        }
+    }
+
+    private NodeLogicStatement parseElseRest(NodeIfStatement begin) {
+        ArrayList<NodeIfStatement> elseIfStatements = new ArrayList<>();
+        while (this.current().type() == TokenType.ELSE) {
+            this.expect(TokenType.ELSE);
+            if(this.current().type() == TokenType.IF) {
+                this.tokens.removeFirst();
+                NodeExpression condition = this.parseCondition();
+                ArrayList<Node> body = this.parseBody(ParseType.IN_STATEMENT);
+                elseIfStatements.add(new NodeIfStatement(condition, body));
+                if(this.current().type() != TokenType.ELSE) {
+                    return new NodeLogicStatement(begin, elseIfStatements, null);
+                }
+            }else{
+                ArrayList<Node> body = this.parseBody(ParseType.IN_STATEMENT);
+                return new NodeLogicStatement(begin, elseIfStatements, new NodeElseStatement(body));
+            }
+        }
+        return null;
+    }
+
+    private NodeIfStatement parseIf() {
+        this.expect(TokenType.IF);
+        NodeExpression condition = this.parseCondition();
+        ArrayList<Node> body = this.parseBody(ParseType.IN_STATEMENT);
+        return new NodeIfStatement(condition, body);
+    }
+
+    private NodeExpression parseCondition() {
+        this.expect(TokenType.PAREN_OPEN);
+        NodeExpression result = this.parseExpressions(ParseType.IN_ARGUMENT);
+        this.expect(TokenType.PAREN_CLOSE);
+        return result;
+    }
     private ArrayList<NodeIdentifier> parseParameters() {
         this.expect(TokenType.PAREN_OPEN);
         ArrayList<NodeIdentifier> val = new ArrayList<>();
@@ -103,7 +149,6 @@ public class Parser {
         this.expect(TokenType.PAREN_CLOSE);
         return val;
     }
-
     private ArrayList<Node> parseBody(ParseType parseType) {
         this.expect(TokenType.BRACE_OPEN);
         ArrayList<Node> val = new ArrayList<>();
@@ -317,7 +362,10 @@ public class Parser {
             case STRING:
                 ret = new NodeStringLiteral(this.tokens.removeFirst().value());
                 break;
-
+            case NULL:
+                ret = new NodeNullLiteral();
+                this.tokens.removeFirst().value();
+                break;
             case PAREN_OPEN:
                 this.tokens.removeFirst();
                 NodeExpression exp = this.parseExpressions(ParseType.IN_ARGUMENT);
@@ -368,7 +416,7 @@ public class Parser {
         if(tk.type() == type) {
             return tk;
         }else {
-            Error.call("Invalid token, expected: "+type+" but found: "+tk.type());
+            Error.call("Invalid token, expected: "+type+" but found: "+tk.type()+", at: "+this.current().position());
             return null;
         }
     }

@@ -3,12 +3,14 @@ package de.jo.aurora.lexer;
 import de.jo.aurora.lexer.tokens.*;
 import de.jo.aurora.lexer.tokens.impl.*;
 import de.jo.aurora.lexer.tokens.impl.primitives.*;
-import de.jo.util.*;
+
+import de.jo.util.Error;
+import de.jo.util.StringUtil;
 
 import java.util.LinkedList;
 
 /**
- * @author CommandJoo 19.05.2023
+ * @author Johannes Hans 19.05.2023
  * @Project AuroraScript
  */
 public class Lexer {

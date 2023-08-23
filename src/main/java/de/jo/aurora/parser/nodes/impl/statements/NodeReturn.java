@@ -5,7 +5,7 @@ import de.jo.aurora.parser.nodes.NodeExpression;
 import de.jo.aurora.parser.nodes.NodeType;
 
 /**
- * @author CommandJoo 18.08.2023
+ * @author Johannes Hans 18.08.2023
  * @Project AuroraScript
  */
 public class NodeReturn extends Node {

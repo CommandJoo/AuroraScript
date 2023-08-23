@@ -1,5 +1,16 @@
 fun main() {
-    let a = 5;
-    a-=3;
+    let a = 16;
+    if(a%3==0 && a%5==0) {
+        return "FizzBuzz";
+    } else if(a%3==0) {
+        return "Fizz";
+    } else if(a%5==0) {
+        return "Buzz";
+    } else {
+        if(a%4==0) {
+            return "/:=)";
+        }
+        return ":(";
+    }
     return a;
 }

@@ -7,6 +7,7 @@ import de.jo.aurora.parser.nodes.impl.expressions.*;
 import de.jo.aurora.parser.nodes.impl.expressions.operations.*;
 import de.jo.aurora.parser.nodes.impl.expressions.objects.*;
 import de.jo.aurora.parser.nodes.impl.statements.*;
+import de.jo.aurora.parser.nodes.impl.statements.logic.NodeLogicStatement;
 import de.jo.util.Error;
 
 import java.util.ArrayList;
@@ -15,7 +16,7 @@ import static de.jo.aurora.interpreter.evaluators.EvalExpressions.*;
 import static de.jo.aurora.interpreter.evaluators.EvalStatements.*;
 
 /**
- * @author CommandJoo 17.08.2023
+ * @author Johannes Hans 17.08.2023
  * @Project AuroraScript
  */
 public class Interpreter {
@@ -54,7 +55,8 @@ public class Interpreter {
                 return ((NodeNumericLiteral) node).number();
             case IDENTIFIER:
                 return env.findVariable(((NodeIdentifier)node).symbol()).value();
-
+            case NULL_LITERAL:
+                return null;
             //EXPRESSIONS
             case UNARY_EXPRESSION:
                 return evalUnExp((NodeUnaryExpression)node, env);
@@ -81,6 +83,8 @@ public class Interpreter {
                 return "DECLARED FUNCTION: "+functionDeclaration;
             case RETURN:
                 return evalReturnStatement((NodeReturn) node, env);
+            case LOGIC:
+                return evalLogicStatement((NodeLogicStatement)node, env);
             default:
                 System.out.println("Unparsed Node of type: " + node.type());
                 System.exit(0);

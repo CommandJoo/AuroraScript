@@ -6,7 +6,7 @@ import de.jo.aurora.parser.nodes.impl.expressions.objects.NodeIdentifier;
 import java.util.ArrayList;
 
 /**
- * @author CommandJoo 18.08.2023
+ * @author Johannes Hans 18.08.2023
  * @Project AuroraScript
  */
 public class Function {

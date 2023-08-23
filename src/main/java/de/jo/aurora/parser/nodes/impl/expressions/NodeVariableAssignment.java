@@ -5,7 +5,7 @@ import de.jo.aurora.parser.nodes.NodeType;
 import de.jo.aurora.parser.nodes.impl.expressions.objects.NodeIdentifier;
 
 /**
- * @author CommandJoo 18.08.2023
+ * @author Johannes Hans 18.08.2023
  * @Project AuroraScript
  */
 public class NodeVariableAssignment extends NodeExpression {

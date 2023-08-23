@@ -1,7 +1,7 @@
 package de.jo.aurora.lexer.tokens;
 
 /**
- * @author CommandJoo 19.05.2023
+ * @author Johannes Hans 19.05.2023
  * @Project AuroraScript
  */
 public abstract class Token {

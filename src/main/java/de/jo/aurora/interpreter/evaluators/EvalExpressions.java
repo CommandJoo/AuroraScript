@@ -2,6 +2,7 @@ package de.jo.aurora.interpreter.evaluators;
 
 import de.jo.aurora.interpreter.Scope;
 import de.jo.aurora.interpreter.runtime.Function;
+import de.jo.aurora.interpreter.runtime.ReturnValue;
 import de.jo.aurora.interpreter.runtime.Variable;
 import de.jo.aurora.parser.nodes.Node;
 import de.jo.aurora.parser.nodes.NodeType;
@@ -19,7 +20,7 @@ import static de.jo.aurora.interpreter.evaluators.EvalComparisons.*;
 import static de.jo.aurora.interpreter.evaluators.EvalOperations.*;
 
 /**
- * @author CommandJoo 17.08.2023
+ * @author Johannes Hans 17.08.2023
  * @Project AuroraScript
  */
 public class EvalExpressions {
@@ -87,10 +88,12 @@ public class EvalExpressions {
         }
 
         for(Node node : func.body()) {
-            if(node.type() != NodeType.RETURN) eval(node, functionScope);
+            if(node.type() != NodeType.RETURN) {
+                Object obj = eval(node, functionScope);
+                if(obj instanceof ReturnValue) return ((ReturnValue) obj).returnValue;
+            }
             else {
-                Object result = eval(node, functionScope);
-                return result;
+                return eval(node, functionScope);
             }
         }
         return null;

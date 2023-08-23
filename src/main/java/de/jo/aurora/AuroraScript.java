@@ -13,7 +13,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 
 /**
- * @author CommandJoo 19.05.2023
+ * @author Johannes Hans 19.05.2023
  * @Project AuroraScript
  */
 public class AuroraScript {
@@ -27,7 +27,7 @@ public class AuroraScript {
         Parser parser = new Parser(tokens);
         parser.parse();
         NodeProgram program = parser.build();
-        System.out.println(program);
+//        System.out.println(program);
 
         Interpreter interpreter = new Interpreter(program, new ArrayList<>());
         Object obj = interpreter.interpret(Scope.globalScope());

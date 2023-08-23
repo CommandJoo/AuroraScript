@@ -1,7 +1,7 @@
 package de.jo.aurora.interpreter.runtime;
 
 /**
- * @author CommandJoo 17.08.2023
+ * @author Johannes Hans 17.08.2023
  * @Project AuroraScript
  */
 public class Variable {

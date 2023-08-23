@@ -3,14 +3,14 @@ package de.jo.aurora.parser.nodes;
 import de.jo.util.StringUtil;
 
 /**
- * @author CommandJoo 19.05.2023
+ * @author Johannes Hans 19.05.2023
  * @Project AuroraScript
  */
 public abstract class Node {
 
     private final NodeType type;
 
-    protected Node(NodeType type) {
+    public Node(NodeType type) {
         this.type = type;
     }
 

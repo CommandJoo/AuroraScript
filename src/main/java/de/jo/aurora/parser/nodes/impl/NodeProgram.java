@@ -6,7 +6,7 @@ import de.jo.aurora.parser.nodes.NodeType;
 import java.util.List;
 
 /**
- * @author CommandJoo 19.05.2023
+ * @author Johannes Hans 19.05.2023
  * @Project AuroraScript
  */
 public class NodeProgram extends Node{

@@ -5,7 +5,7 @@ import de.jo.aurora.lexer.tokens.TokenPosition;
 import de.jo.aurora.lexer.tokens.TokenType;
 
 /**
- * @author CommandJoo 19.05.2023
+ * @author Johannes Hans 19.05.2023
  * @Project AuroraScript
  */
 public class TokenConst extends Token {

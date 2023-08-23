@@ -1,9 +1,7 @@
 package de.jo.aurora.parser.nodes;
 
-import com.sun.org.apache.bcel.internal.generic.RETURN;
-
 /**
- * @author CommandJoo 19.05.2023
+ * @author Johannes Hans 19.05.2023
  * @Project AuroraScript
  */
 public enum NodeType {
@@ -11,7 +9,7 @@ public enum NodeType {
     PROGRAM,
 
     //EXPRESSION
-    IDENTIFIER, NUMERIC_LITERAL, BOOLEAN_LITERAL, STRING_LITERAL, CHAR_LITERAL,
+    IDENTIFIER, NUMERIC_LITERAL, BOOLEAN_LITERAL, STRING_LITERAL, CHAR_LITERAL, NULL_LITERAL,
 
     TERNARY_EXPRESSION, BINARY_EXPRESSION, UNARY_EXPRESSION,
     BINARY_COMPARISON,
@@ -19,6 +17,8 @@ public enum NodeType {
     FUNCTION_CALL, VARIABLE_ASSIGNMENT,
 
     //STATEMENT
-    VARIABLE_DECLARATION, FUNCTION_DECLARATION, RETURN
+    VARIABLE_DECLARATION, FUNCTION_DECLARATION, RETURN,
+
+    LOGIC, IF, ELSE, ELSE_IF, FOR, WHILE
 
 }

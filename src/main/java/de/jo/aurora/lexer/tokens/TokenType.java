@@ -1,6 +1,10 @@
 package de.jo.aurora.lexer.tokens;
 
 import de.jo.aurora.lexer.tokens.impl.*;
+import de.jo.aurora.lexer.tokens.impl.logic.TokenElse;
+import de.jo.aurora.lexer.tokens.impl.logic.TokenFor;
+import de.jo.aurora.lexer.tokens.impl.logic.TokenIf;
+import de.jo.aurora.lexer.tokens.impl.logic.TokenWhile;
 import de.jo.aurora.lexer.tokens.impl.operating.*;
 import de.jo.aurora.lexer.tokens.impl.syntax.*;
 import de.jo.aurora.lexer.tokens.impl.primitives.*;
@@ -9,7 +13,7 @@ import de.jo.aurora.lexer.tokens.impl.objects.*;
 import de.jo.util.Reflections;
 
 /**
- * @author CommandJoo 19.05.2023
+ * @author Johannes Hans 19.05.2023
  * @Project AuroraScript
  */
 public enum TokenType {
@@ -29,10 +33,15 @@ public enum TokenType {
     DOT(TokenDot.class, new TokenDot(null, null)), COMMA(TokenComma.class, new TokenComma(null, null)),
     RETURN(TokenReturn.class, new TokenReturn(null, null)),
 
+    //LOGIC
+    IF(TokenIf.class, new TokenIf(null, null)), ELSE(TokenElse.class, new TokenElse(null, null)),
+    FOR(TokenFor.class, new TokenFor(null, null)), WHILE(TokenWhile.class, new TokenWhile(null, null)),
+
+
     //PRIMITIVES
     INT(TokenInt.class, new TokenInt("0", null)), FLOAT(TokenFloat.class, new TokenFloat("0.0", null)),
     BOOLEAN(TokenBoolean.class, new TokenBoolean("false", null)), STRING(TokenString.class, new TokenString("\"\"", null)),
-    CHAR(TokenChar.class, new TokenChar("''", null)),
+    CHAR(TokenChar.class, new TokenChar("''", null)), NULL(TokenNull.class, new TokenNot(null, null)),
 
     //OBJECTS
     IDENTIFIER(TokenIdentifier.class, new TokenIdentifier(null, null)),

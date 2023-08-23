@@ -7,7 +7,7 @@ import java.lang.reflect.Parameter;
 import java.util.ArrayList;
 
 /**
- * @author CommandJoo 25.04.2023
+ * @author Johannes Hans 25.04.2023
  * @Project ProgrammingLanguage
  */
 public class Reflections {
