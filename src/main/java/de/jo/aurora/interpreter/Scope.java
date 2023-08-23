@@ -1,7 +1,6 @@
 package de.jo.aurora.interpreter;
 
-import de.jo.aurora.interpreter.runtime.Function;
-import de.jo.aurora.interpreter.runtime.Variable;
+import de.jo.aurora.interpreter.runtime.*;
 import de.jo.util.StringUtil;
 
 import java.util.ArrayList;
