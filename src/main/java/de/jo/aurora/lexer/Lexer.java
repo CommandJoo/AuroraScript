@@ -1,11 +1,9 @@
 package de.jo.aurora.lexer;
 
 import de.jo.aurora.lexer.tokens.*;
-import de.jo.aurora.lexer.tokens.impl.TokenEndOfFile;
+import de.jo.aurora.lexer.tokens.impl.*;
 import de.jo.aurora.lexer.tokens.impl.primitives.*;
-import de.jo.aurora.lexer.tokens.impl.primitives.TokenString;
-import de.jo.util.Error;
-import de.jo.util.StringUtil;
+import de.jo.util.*;
 
 import java.util.LinkedList;
 
