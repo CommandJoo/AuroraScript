@@ -2,17 +2,11 @@ package de.jo.aurora.interpreter;
 
 import de.jo.aurora.interpreter.runtime.Function;
 import de.jo.aurora.parser.nodes.Node;
-import de.jo.aurora.parser.nodes.impl.NodeProgram;
-import de.jo.aurora.parser.nodes.impl.expressions.NodeFunctionCall;
-import de.jo.aurora.parser.nodes.impl.expressions.NodeVariableAssignment;
-import de.jo.aurora.parser.nodes.impl.expressions.operations.NodeBinaryComparisonExpression;
-import de.jo.aurora.parser.nodes.impl.expressions.operations.NodeBinaryExpression;
-import de.jo.aurora.parser.nodes.impl.expressions.operations.NodeTernaryExpression;
-import de.jo.aurora.parser.nodes.impl.expressions.operations.NodeUnaryExpression;
+import de.jo.aurora.parser.nodes.impl.*;
+import de.jo.aurora.parser.nodes.impl.expressions.*;
+import de.jo.aurora.parser.nodes.impl.expressions.operations.*;
 import de.jo.aurora.parser.nodes.impl.expressions.objects.*;
-import de.jo.aurora.parser.nodes.impl.statements.NodeFunctionDeclaration;
-import de.jo.aurora.parser.nodes.impl.statements.NodeReturn;
-import de.jo.aurora.parser.nodes.impl.statements.NodeVariableDeclaration;
+import de.jo.aurora.parser.nodes.impl.statements.*;
 import de.jo.util.Error;
 
 import java.util.ArrayList;
