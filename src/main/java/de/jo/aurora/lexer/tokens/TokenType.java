@@ -1,13 +1,11 @@
 package de.jo.aurora.lexer.tokens;
 
-import de.jo.aurora.lexer.tokens.impl.TokenEndOfFile;
-import de.jo.aurora.lexer.tokens.impl.TokenIdentifier;
-import de.jo.aurora.lexer.tokens.impl.objects.TokenFunction;
+import de.jo.aurora.lexer.tokens.impl.*;
 import de.jo.aurora.lexer.tokens.impl.operating.*;
 import de.jo.aurora.lexer.tokens.impl.syntax.*;
 import de.jo.aurora.lexer.tokens.impl.primitives.*;
-import de.jo.aurora.lexer.tokens.impl.objects.TokenConst;
-import de.jo.aurora.lexer.tokens.impl.objects.TokenLet;
+import de.jo.aurora.lexer.tokens.impl.objects.*;
+
 import de.jo.util.Reflections;
 
 /**
