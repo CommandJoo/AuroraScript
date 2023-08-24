@@ -28,6 +28,6 @@ public abstract class Token {
 
     @Override
     public String toString() {
-        return this.getClass().getSimpleName()+"[type: '"+type()+"', value: '"+value()+"']";
+        return this.getClass().getSimpleName()+"[type: '"+type()+"', value: '"+value()+"', pos: '"+position+"']";
     }
 }

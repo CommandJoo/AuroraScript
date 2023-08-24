@@ -8,6 +8,8 @@ import de.jo.aurora.parser.nodes.impl.expressions.operations.*;
 import de.jo.aurora.parser.nodes.impl.expressions.objects.*;
 import de.jo.aurora.parser.nodes.impl.statements.*;
 import de.jo.aurora.parser.nodes.impl.statements.logic.NodeLogicStatement;
+import de.jo.aurora.parser.nodes.impl.statements.loops.NodeForLoop;
+import de.jo.aurora.parser.nodes.impl.statements.loops.NodeWhileLoop;
 import de.jo.util.Error;
 
 import java.util.ArrayList;
@@ -85,6 +87,10 @@ public class Interpreter {
                 return evalReturnStatement((NodeReturn) node, env);
             case LOGIC:
                 return evalLogicStatement((NodeLogicStatement)node, env);
+            case WHILE:
+                return evalWhileStatement((NodeWhileLoop) node, env);
+            case FOR:
+                return evalForStatement((NodeForLoop)node, env);
             default:
                 System.out.println("Unparsed Node of type: " + node.type());
                 System.exit(0);

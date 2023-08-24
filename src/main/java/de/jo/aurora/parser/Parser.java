@@ -10,6 +10,8 @@ import de.jo.aurora.parser.nodes.impl.statements.*;
 import de.jo.aurora.parser.nodes.impl.statements.logic.NodeElseStatement;
 import de.jo.aurora.parser.nodes.impl.statements.logic.NodeIfStatement;
 import de.jo.aurora.parser.nodes.impl.statements.logic.NodeLogicStatement;
+import de.jo.aurora.parser.nodes.impl.statements.loops.NodeForLoop;
+import de.jo.aurora.parser.nodes.impl.statements.loops.NodeWhileLoop;
 import de.jo.util.Error;
 
 import java.util.ArrayList;
@@ -49,6 +51,12 @@ public class Parser {
             case IF:
                 if(parseType != ParseType.IN_FUNCTION && parseType != ParseType.IN_STATEMENT) Error.call("If Statements can only be declared in functions or other statements not at level: "+parseType);
                 return this.parseLogic();
+            case WHILE:
+                if(parseType != ParseType.IN_FUNCTION && parseType != ParseType.IN_STATEMENT) Error.call("While Statements can only be declared in functions or other statements not at level: "+parseType);
+                return this.parseWhile();
+            case FOR:
+                if(parseType != ParseType.IN_FUNCTION && parseType != ParseType.IN_STATEMENT) Error.call("For Statements can only be declared in functions or other statements not at level: "+parseType);
+                return this.parseFor();
         }
         return parseExpressions(parseType);
     }
@@ -129,9 +137,43 @@ public class Parser {
         return new NodeIfStatement(condition, body);
     }
 
+    private NodeWhileLoop parseWhile() {
+        this.expect(TokenType.WHILE);
+        NodeExpression condition = this.parseCondition();
+        ArrayList<Node> body = this.parseBody(ParseType.IN_STATEMENT);
+        return new NodeWhileLoop(condition, body);
+    }
+
+    private NodeForLoop parseFor() {
+        this.expect(TokenType.FOR);
+        ArrayList<Node> forParams = this.parseForCondition();
+        if(forParams.size() != 3 || (forParams.get(0) instanceof NodeExpression) || !(forParams.get(1) instanceof NodeExpression) || !(forParams.get(2) instanceof NodeExpression)) Error.call("For Loop must contain 3 parts (Statment; Expression; Expression), "+this.current().position(), new IllegalStateException());
+        ArrayList<Node> body = this.parseBody(ParseType.IN_STATEMENT);
+        return new NodeForLoop(forParams.get(0), (NodeExpression) forParams.get(1), (NodeExpression) forParams.get(2), body);
+    }
     private NodeExpression parseCondition() {
         this.expect(TokenType.PAREN_OPEN);
         NodeExpression result = this.parseExpressions(ParseType.IN_ARGUMENT);
+        this.expect(TokenType.PAREN_CLOSE);
+        return result;
+    }
+
+    private ArrayList<Node> parseForCondition() {
+        this.expect(TokenType.PAREN_OPEN);
+        ArrayList<Node> result = new ArrayList<>();
+
+//        do {
+//            if(this.current().type() == TokenType.SEMICOLON) this.tokens.removeFirst();
+//
+//            result.add(this.parseStatements(ParseType.IN_ARGUMENT));
+//        } while (this.current().type() == TokenType.SEMICOLON);
+
+        result.add(this.parseStatements(ParseType.IN_ARGUMENT));
+        //DONT PARSE SEMICOLON CUZ OF LET .. = ..; STATEMENT THAT ALWAYS REQUIRES SEMICOLON
+        result.add(this.parseStatements(ParseType.IN_ARGUMENT));
+        this.expect(TokenType.SEMICOLON);
+        result.add(this.parseStatements(ParseType.IN_ARGUMENT));
+
         this.expect(TokenType.PAREN_CLOSE);
         return result;
     }
@@ -242,10 +284,21 @@ public class Parser {
 
     //parses comparisons like == >= <= !=
     private NodeExpression parseComparative(ParseType parseType) {
-        NodeExpression left = this.parseAdditive(parseType);
+        NodeExpression left = this.parseSingularComparative(parseType);
         while ((this.current().type() == TokenType.LESS_GREATER_THAN || this.current().type() == TokenType.EQUALS || this.current().type() == TokenType.NOT) && (this.tokens.get(1).type() == TokenType.EQUALS)) {
             String operator = this.tokens.removeFirst().value();
             operator += this.tokens.removeFirst().value();
+            NodeExpression right = this.parseSingularComparative(parseType);
+            left = new NodeBinaryComparisonExpression(left, operator, right);
+        }
+        return left;
+    }
+
+    // < and >
+    private NodeExpression parseSingularComparative(ParseType parseType) {
+        NodeExpression left = this.parseAdditive(parseType);
+        while ((this.current().type() == TokenType.LESS_GREATER_THAN || this.current().type() == TokenType.NOT) && (this.tokens.get(1).type() != TokenType.EQUALS)) {
+            String operator = this.tokens.removeFirst().value();
             NodeExpression right = this.parseAdditive(parseType);
             left = new NodeBinaryComparisonExpression(left, operator, right);
         }

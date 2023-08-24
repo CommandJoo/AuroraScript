@@ -9,16 +9,18 @@ import java.util.ArrayList;
  * @author Johannes Hans 18.08.2023
  * @Project AuroraScript
  */
-public class Function {
+public abstract class Function {
 
     private final String identifier;
     private final ArrayList<Node> body;
     private final ArrayList<NodeIdentifier> parameters;
+    private final FunctionType type;
 
-    public Function(String identifier, ArrayList<Node> body, ArrayList<NodeIdentifier> parameters) {
+    public Function(String identifier, ArrayList<Node> body, ArrayList<NodeIdentifier> parameters, FunctionType type) {
         this.identifier = identifier;
         this.body = body;
         this.parameters = parameters;
+        this.type = type;
     }
 
     public String identifier() {
@@ -29,7 +31,18 @@ public class Function {
         return body;
     }
 
+    public abstract Object call(ArrayList<Object> args);
+
     public ArrayList<NodeIdentifier> parameters() {
         return parameters;
     }
+
+    public FunctionType type() {
+        return type;
+    }
+
+    public enum FunctionType {
+        CODE, NATIVE
+    }
+
 }

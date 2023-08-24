@@ -20,6 +20,6 @@ public class TokenWhile extends Token {
 
     @Override
     public boolean match(String val) {
-        return val.equals("whole");
+        return val.equals("while");
     }
 }

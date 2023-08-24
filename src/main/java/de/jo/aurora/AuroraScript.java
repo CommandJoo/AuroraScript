@@ -22,7 +22,7 @@ public class AuroraScript {
         Lexer lexer = new Lexer(code);
         lexer.lex();
         TokenList tokens = lexer.build();
-        System.out.println(tokens);
+//        System.out.println(tokens);
 
         Parser parser = new Parser(tokens);
         parser.parse();

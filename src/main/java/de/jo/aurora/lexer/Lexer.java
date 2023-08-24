@@ -24,7 +24,7 @@ public class Lexer {
     }
 
     public void lex() {
-        TokenPosition position = new TokenPosition(1, 0);
+        TokenPosition position = new TokenPosition(0, 0);
 
         while (!code.isEmpty()) {
             if (this.current().equals("/") && this.code.get(1).equals("/")) {
@@ -61,22 +61,17 @@ public class Lexer {
                 position = this.update(position);
                 if(this.current().equals("\"")) {
                     tokens.add(new TokenString("", position));
+                }else {
+                    StringBuilder ident = new StringBuilder(this.shift());
+                    while(!this.current().equals("\"")) {
+                        ident.append(this.shift());
+                        position = this.update(position);
+                    }
                     this.shift();
-                    continue;
-                }
-                StringBuilder ident = new StringBuilder(this.shift());
-                if(this.current().equals("\"")) {
-                    this.tokens.add(new TokenString(ident.toString(), position));
-                    continue;
-                }
-                while (!this.current().equals("\"")) {
-                    ident.append(this.shift());
                     position = this.update(position);
-                }
-                this.shift();
-                position = this.update(position);
 
-                this.tokens.add(new TokenString(ident.toString(), position));
+                    this.tokens.add(new TokenString(ident.toString(), position));
+                }
             }
             if(this.current().equals("'")) {
                 this.shift();
@@ -166,7 +161,7 @@ public class Lexer {
             position.setLine(position.line() + 1);
             position.setPos(0);
         }
-        return position;
+        return new TokenPosition(position.line(), position.pos());
     }
 
     /**

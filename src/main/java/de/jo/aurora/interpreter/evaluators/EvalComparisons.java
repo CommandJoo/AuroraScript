@@ -31,7 +31,7 @@ public class EvalComparisons {
                 result = (left.floatValue() <= right.floatValue());
                 break;
             default:
-                Error.call("Invalid operator for numeric binary comparison", new IllegalArgumentException());
+                Error.call("Invalid operator for numeric binary comparison", new IllegalArgumentException(operator));
                 break;
         }
         return result;

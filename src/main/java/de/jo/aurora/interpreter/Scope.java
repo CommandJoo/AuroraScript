@@ -1,6 +1,10 @@
 package de.jo.aurora.interpreter;
 
 import de.jo.aurora.interpreter.runtime.*;
+import de.jo.aurora.parser.nodes.Node;
+import de.jo.aurora.parser.nodes.NodeExpression;
+import de.jo.aurora.parser.nodes.impl.expressions.objects.NodeIdentifier;
+import de.jo.util.Reflections;
 import de.jo.util.StringUtil;
 
 import java.util.ArrayList;
@@ -22,10 +26,18 @@ public class Scope {
     }
 
     public static Scope globalScope() {
-
+        Scope global = new Scope(null);
         //register global variables
-
-        return new Scope(null);
+        global.addFunction(new Function("print", new ArrayList<>(), new ArrayList<>(), Function.FunctionType.NATIVE) {
+            @Override
+            public Object call(ArrayList<Object> args) {
+                for(Object obj : args) {
+                    System.out.println(obj.toString());
+                }
+                return args.toString();
+            }
+        });
+        return global;
     }
 
     public int level() {

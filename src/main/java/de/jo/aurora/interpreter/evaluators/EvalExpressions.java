@@ -5,6 +5,7 @@ import de.jo.aurora.interpreter.runtime.Function;
 import de.jo.aurora.interpreter.runtime.ReturnValue;
 import de.jo.aurora.interpreter.runtime.Variable;
 import de.jo.aurora.parser.nodes.Node;
+import de.jo.aurora.parser.nodes.NodeExpression;
 import de.jo.aurora.parser.nodes.NodeType;
 import de.jo.aurora.parser.nodes.impl.expressions.NodeFunctionCall;
 import de.jo.aurora.parser.nodes.impl.expressions.NodeVariableAssignment;
@@ -14,6 +15,8 @@ import de.jo.aurora.parser.nodes.impl.expressions.operations.NodeTernaryExpressi
 import de.jo.aurora.parser.nodes.impl.expressions.operations.NodeUnaryExpression;
 import de.jo.util.Error;
 import de.jo.util.Reflections;
+
+import java.util.ArrayList;
 
 import static de.jo.aurora.interpreter.Interpreter.*;
 import static de.jo.aurora.interpreter.evaluators.EvalComparisons.*;
@@ -76,6 +79,14 @@ public class EvalExpressions {
         //result may be null for function without return statement
         Function func = env.findFunction(funcall.name().symbol());
         Scope functionScope = new Scope(env);
+
+        if(func.type() == Function.FunctionType.NATIVE) {
+            ArrayList<Object> params = new ArrayList<>();
+            for(NodeExpression exp : funcall.arguments()) {
+                params.add(eval(exp, env));
+            }
+            return func.call(params);
+        }
 
         if(func.parameters().size() != funcall.arguments().size())
             Error.call("Invalid amount of arguments for function: "+func.identifier(), new IllegalArgumentException("Expected "+func.parameters().size() +" but found " +funcall.arguments().size()));
