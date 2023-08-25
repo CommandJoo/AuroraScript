@@ -1,8 +1,7 @@
 package de.jo.aurora.interpreter;
 
 import de.jo.aurora.interpreter.runtime.*;
-import de.jo.aurora.parser.nodes.Node;
-import de.jo.aurora.parser.nodes.NodeExpression;
+import de.jo.aurora.parser.nodes.*;
 import de.jo.aurora.parser.nodes.impl.expressions.objects.NodeIdentifier;
 import de.jo.util.Reflections;
 import de.jo.util.StringUtil;
