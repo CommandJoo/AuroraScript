@@ -1,18 +1,12 @@
 package de.jo.aurora.interpreter.evaluators;
 
 import de.jo.aurora.interpreter.Scope;
-import de.jo.aurora.interpreter.runtime.Function;
-import de.jo.aurora.interpreter.runtime.ReturnValue;
-import de.jo.aurora.interpreter.runtime.Variable;
-import de.jo.aurora.parser.nodes.Node;
-import de.jo.aurora.parser.nodes.NodeExpression;
-import de.jo.aurora.parser.nodes.NodeType;
-import de.jo.aurora.parser.nodes.impl.expressions.NodeFunctionCall;
-import de.jo.aurora.parser.nodes.impl.expressions.NodeVariableAssignment;
-import de.jo.aurora.parser.nodes.impl.expressions.operations.NodeBinaryComparisonExpression;
-import de.jo.aurora.parser.nodes.impl.expressions.operations.NodeBinaryExpression;
-import de.jo.aurora.parser.nodes.impl.expressions.operations.NodeTernaryExpression;
-import de.jo.aurora.parser.nodes.impl.expressions.operations.NodeUnaryExpression;
+import de.jo.aurora.interpreter.runtime.*;
+
+import de.jo.aurora.parser.nodes.*;
+
+import de.jo.aurora.parser.nodes.impl.expressions.*;
+import de.jo.aurora.parser.nodes.impl.expressions.operations.*;
 import de.jo.util.Error;
 import de.jo.util.Reflections;
 
