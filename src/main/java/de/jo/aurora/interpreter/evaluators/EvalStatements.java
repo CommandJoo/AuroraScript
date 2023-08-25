@@ -1,20 +1,15 @@
 package de.jo.aurora.interpreter.evaluators;
 
 import de.jo.aurora.interpreter.Scope;
-import de.jo.aurora.interpreter.runtime.Function;
-import de.jo.aurora.interpreter.runtime.ReturnValue;
-import de.jo.aurora.interpreter.runtime.Variable;
-import de.jo.aurora.parser.nodes.Node;
-import de.jo.aurora.parser.nodes.NodeType;
-import de.jo.aurora.parser.nodes.impl.NodeProgram;
-import de.jo.aurora.parser.nodes.impl.statements.NodeFunctionDeclaration;
-import de.jo.aurora.parser.nodes.impl.statements.NodeReturn;
-import de.jo.aurora.parser.nodes.impl.statements.NodeVariableDeclaration;
-import de.jo.aurora.parser.nodes.impl.statements.logic.NodeElseStatement;
-import de.jo.aurora.parser.nodes.impl.statements.logic.NodeIfStatement;
-import de.jo.aurora.parser.nodes.impl.statements.logic.NodeLogicStatement;
-import de.jo.aurora.parser.nodes.impl.statements.loops.NodeForLoop;
-import de.jo.aurora.parser.nodes.impl.statements.loops.NodeWhileLoop;
+import de.jo.aurora.interpreter.runtime.*;
+
+import de.jo.aurora.parser.nodes.*;
+
+import de.jo.aurora.parser.nodes.impl.*;
+import de.jo.aurora.parser.nodes.impl.statements.*;
+import de.jo.aurora.parser.nodes.impl.statements.logic.*;
+
+import de.jo.aurora.parser.nodes.impl.statements.loops.*;
 
 import java.util.ArrayList;
 
